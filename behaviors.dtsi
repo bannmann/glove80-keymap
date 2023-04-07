@@ -1,0 +1,171 @@
+    behaviors {
+        parsl: paren_shift_left {
+            compatible = "zmk,behavior-mod-morph";
+            label = "PAREN_SHIFT_LEFT";
+            #binding-cells = <0>;
+            bindings = <&kp LSHFT>, <&kp N9>;
+            mods = <(MOD_RSFT)>;
+            keep-mods = <(MOD_RSFT)>;
+        };
+        parsr: paren_shift_right {
+            compatible = "zmk,behavior-mod-morph";
+            label = "PAREN_SHIFT_RIGHT";
+            #binding-cells = <0>;
+            bindings = <&kp RSHFT>, <&kp N0>;
+            mods = <(MOD_LSFT)>;
+            keep-mods = <(MOD_LSFT)>;
+        };
+
+        // sends the given keycode only if held for at least 100 ms. second keycode is ignored.
+        // example use: "Custom" with "&strong PSCRN 0".
+        strong: strong-press {
+            compatible = "zmk,behavior-hold-tap";
+            label = "STRONG_PRESS";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <100>;
+            quick-tap-ms = <100>;
+            global-quick-tap;
+            bindings = <&kp>, <&none>;
+        };
+    };
+
+    combos { // binding indexes are 0-based
+        compatible = "zmk,combos";
+
+        #define COMBO_TIMEOUT 50
+
+        #define COMBO_K2_B1(suffix, k1, k2, b1) \
+            combo_##suffix { \
+                timeout-ms = <COMBO_TIMEOUT>; \
+                key-positions = <k1 k2>; \
+                bindings = <b1>; \
+            };
+
+        #define COMBO_K2_B2(suffix, k1, k2, b1, b2) \
+            combo_##suffix { \
+                timeout-ms = <COMBO_TIMEOUT>; \
+                key-positions = <k1 k2>; \
+                bindings = <b1 b2>; \
+            };
+
+        // Horizontal combos
+        COMBO_K2_B2(home_hj, 40, 41, &kp, HOME)         // HJ
+        COMBO_K2_B2(end_kl, 42, 43, &kp, END)           // KL
+        COMBO_K2_B2(cut, 48, 49, &kp, LC(X))            // XC
+        COMBO_K2_B2(copy, 49, 50, &kp, LC(C))           // CV
+        COMBO_K2_B2(paste, 50, 51, &kp, LC(V))          // VB
+        COMBO_K2_B2(undo, 47, 48, &kp, LC(Z))           // ZX
+        COMBO_K2_B2(selectall, 35, 36, &kp, LC(A))      // AS
+        COMBO_K2_B2(home, 66, 67, &kp, HOME)            // \⯇
+        COMBO_K2_B2(end, 67, 68, &kp, END)              // ⯇⯈
+        COMBO_K2_B2(enter, 69, 70, &kp, ENTER)          // ⌫⌦
+        COMBO_K2_B2(space, 70, 71, &kp, SPACE)          // ⌦⊞
+        COMBO_K2_B2(pageup, 75, 76, &kp, PAGE_UP)       // ⯅⯆
+        COMBO_K2_B2(pagedown, 76, 77, &kp, PAGE_DOWN)   // ⯆[
+
+        // Vertical combos
+        COMBO_K2_B1(az, 35, 47, &xa) // ä or Ä
+        COMBO_K2_B1(uj, 29, 41, &xu) // ü or Ü
+        COMBO_K2_B1(ol, 31, 43, &xo) // ö or Ö
+        COMBO_K2_B1(sx, 36, 48, &xs) // ß or ẞ
+        COMBO_K2_B1(ed, 25, 37, &xe) // €
+    };
+
+    macros {
+        #define COMPOSE_KEY F24
+
+        #define COMPOSE_TAP_2(name, k1, k2) \
+            name: name { \
+                    label = #name; \
+                    compatible = "zmk,behavior-macro"; \
+                    #binding-cells = <0>; \
+                    wait-ms = <10>; \
+                    tap-ms = <10>; \
+                    bindings \
+                        = <&macro_tap     &kp COMPOSE_KEY &kp k1 &kp k2> \
+                        ; \
+                };
+        #define COMPOSE_BIND_2(name, b1, b2) \
+            name: name { \
+                    label = #name; \
+                    compatible = "zmk,behavior-macro"; \
+                    #binding-cells = <0>; \
+                    wait-ms = <10>; \
+                    tap-ms = <10>; \
+                    bindings = <&macro_tap &kp COMPOSE_KEY>, b1, b2; \
+                };
+        #define COMPOSE_BIND_3(name, b1, b2, b3) \
+            name: name { \
+                    label = #name; \
+                    compatible = "zmk,behavior-macro"; \
+                    #binding-cells = <0>; \
+                    wait-ms = <10>; \
+                    tap-ms = <10>; \
+                    bindings = <&macro_tap &kp COMPOSE_KEY>, b1, b2, b3; \
+                };
+        #define BIND_DOUBLEQUOTE \
+              <&macro_press   &kp LSHIFT> \
+            , <&macro_tap     &kp SQT> \
+            , <&macro_release &kp LSHIFT>
+
+
+        // ä and Ä
+        COMPOSE_BIND_2(xa
+            , <&macro_tap     &kp A>
+            , BIND_DOUBLEQUOTE
+        )
+
+        // ö and Ö
+        COMPOSE_BIND_2(xo
+            , <&macro_tap     &kp O>
+            , BIND_DOUBLEQUOTE
+        )
+
+        // ü and Ü
+        COMPOSE_BIND_2(xu
+            , <&macro_tap     &kp U>
+            , BIND_DOUBLEQUOTE
+        )
+
+        // ß and ẞ
+        COMPOSE_TAP_2(xs, S, S)
+
+        // €
+        COMPOSE_TAP_2(xe, E, EQUAL)
+
+        // ×
+        COMPOSE_TAP_2(xx, X, X)
+
+        // ❶❷❸❹❺❻❼❽❾⓿
+        COMPOSE_TAP_2(xn1, N, N1)
+        COMPOSE_TAP_2(xn2, N, N2)
+        COMPOSE_TAP_2(xn3, N, N3)
+        COMPOSE_TAP_2(xn4, N, N4)
+        COMPOSE_TAP_2(xn5, N, N5)
+        COMPOSE_TAP_2(xn6, N, N6)
+        COMPOSE_TAP_2(xn7, N, N7)
+        COMPOSE_TAP_2(xn8, N, N8)
+        COMPOSE_TAP_2(xn9, N, N9)
+        COMPOSE_TAP_2(xn0, N, N0)
+
+        // ⯈⯇⯅⯆
+        COMPOSE_TAP_2(xtr, T, RIGHT) 
+        COMPOSE_TAP_2(xtl, T, LEFT)  
+        COMPOSE_TAP_2(xtu, T, UP)    
+        COMPOSE_TAP_2(xtd, T, DOWN)  
+
+        // «
+        COMPOSE_BIND_3(xcomma
+            , <&macro_press   &kp LSHIFT>
+            , <&macro_tap     &kp COMMA &kp COMMA>
+            , <&macro_release &kp LSHIFT>
+        )
+
+        // »
+        COMPOSE_BIND_3(xdot
+            , <&macro_press   &kp LSHIFT>
+            , <&macro_tap     &kp DOT &kp DOT>
+            , <&macro_release &kp LSHIFT>
+        )
+    };
