@@ -111,22 +111,13 @@
 
 
         // ä and Ä
-        COMPOSE_BIND_2(xa
-            , <&macro_tap     &kp A>
-            , BIND_DOUBLEQUOTE
-        )
+        COMPOSE_TAP_2(xa, A, E)
 
         // ö and Ö
-        COMPOSE_BIND_2(xo
-            , <&macro_tap     &kp O>
-            , BIND_DOUBLEQUOTE
-        )
+        COMPOSE_TAP_2(xo, O, E)
 
         // ü and Ü
-        COMPOSE_BIND_2(xu
-            , <&macro_tap     &kp U>
-            , BIND_DOUBLEQUOTE
-        )
+        COMPOSE_TAP_2(xu, U, E)
 
         // ß and ẞ
         COMPOSE_TAP_2(xs, S, S)
@@ -150,10 +141,10 @@
         COMPOSE_TAP_2(xn0, N, N0)
 
         // ⯈⯇⯅⯆
-        COMPOSE_TAP_2(xtr, T, RIGHT) 
-        COMPOSE_TAP_2(xtl, T, LEFT)  
-        COMPOSE_TAP_2(xtu, T, UP)    
-        COMPOSE_TAP_2(xtd, T, DOWN)  
+        COMPOSE_TAP_2(xtr, T, R) 
+        COMPOSE_TAP_2(xtl, T, L)  
+        COMPOSE_TAP_2(xtu, T, U)    
+        COMPOSE_TAP_2(xtd, T, D)  
 
         // «
         COMPOSE_BIND_3(xcomma
