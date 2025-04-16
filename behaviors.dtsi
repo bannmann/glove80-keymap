@@ -73,9 +73,13 @@
     };
 
     macros {
-        #define COMPOSE_KEY F24
+        #define SEND_START F19
+        #define S0 F20
+        #define S1 F21
+        #define S2 F22
+        #define SEND_STOP F23
 
-        #define COMPOSE_TAP_2(name, k1, k2) \
+        #define SEND3(name, k1, k2, k3) \
             name: name { \
                     label = #name; \
                     compatible = "zmk,behavior-macro"; \
@@ -83,80 +87,53 @@
                     wait-ms = <10>; \
                     tap-ms = <10>; \
                     bindings \
-                        = <&macro_tap     &kp COMPOSE_KEY &kp k1 &kp k2> \
+                        = <&macro_tap     &kp SEND_START &kp k1 &kp k2 &kp k3 &kp SEND_STOP> \
                         ; \
                 };
-        #define COMPOSE_BIND_2(name, b1, b2) \
-            name: name { \
-                    label = #name; \
-                    compatible = "zmk,behavior-macro"; \
-                    #binding-cells = <0>; \
-                    wait-ms = <10>; \
-                    tap-ms = <10>; \
-                    bindings = <&macro_tap &kp COMPOSE_KEY>, b1, b2; \
-                };
-        #define COMPOSE_BIND_3(name, b1, b2, b3) \
-            name: name { \
-                    label = #name; \
-                    compatible = "zmk,behavior-macro"; \
-                    #binding-cells = <0>; \
-                    wait-ms = <10>; \
-                    tap-ms = <10>; \
-                    bindings = <&macro_tap &kp COMPOSE_KEY>, b1, b2, b3; \
-                };
-        #define BIND_DOUBLEQUOTE \
-              <&macro_press   &kp LSHIFT> \
-            , <&macro_tap     &kp SQT> \
-            , <&macro_release &kp LSHIFT>
-
 
         // ä and Ä
-        COMPOSE_TAP_2(xa, A, E)
+        SEND3(xa, S0, S0, S0)
 
         // ö and Ö
-        COMPOSE_TAP_2(xo, O, E)
+        SEND3(xo, S0, S0, S1)
 
         // ü and Ü
-        COMPOSE_TAP_2(xu, U, E)
+        SEND3(xu, S0, S0, S2)
 
         // ß and ẞ
-        COMPOSE_TAP_2(xs, S, S)
+        SEND3(xs, S0, S1, S0)
 
         // €
-        COMPOSE_TAP_2(xe, E, EQUAL)
+        SEND3(xe, S0, S1, S1)
 
         // ×
-        COMPOSE_TAP_2(xx, X, X)
+        SEND3(xx, S0, S1, S2)
 
         // ❶❷❸❹❺❻❼❽❾⓿
-        COMPOSE_TAP_2(xn1, N, N1)
-        COMPOSE_TAP_2(xn2, N, N2)
-        COMPOSE_TAP_2(xn3, N, N3)
-        COMPOSE_TAP_2(xn4, N, N4)
-        COMPOSE_TAP_2(xn5, N, N5)
-        COMPOSE_TAP_2(xn6, N, N6)
-        COMPOSE_TAP_2(xn7, N, N7)
-        COMPOSE_TAP_2(xn8, N, N8)
-        COMPOSE_TAP_2(xn9, N, N9)
-        COMPOSE_TAP_2(xn0, N, N0)
+        SEND3(xn1, S0, S2, S0)
+        SEND3(xn2, S0, S2, S1)
+        SEND3(xn3, S0, S2, S2)
+        SEND3(xn4, S1, S0, S0)
+        SEND3(xn5, S1, S0, S1)
+        SEND3(xn6, S1, S0, S2)
+        SEND3(xn7, S1, S1, S0)
+        SEND3(xn8, S1, S1, S1)
+        SEND3(xn9, S1, S1, S2)
+        SEND3(xn0, S1, S2, S0)
 
         // ⯈⯇⯅⯆
-        COMPOSE_TAP_2(xtr, T, R) 
-        COMPOSE_TAP_2(xtl, T, L)  
-        COMPOSE_TAP_2(xtu, T, U)    
-        COMPOSE_TAP_2(xtd, T, D)  
+        SEND3(xtr, S1, S2, S1)
+        SEND3(xtl, S1, S2, S2)
+        SEND3(xtu, S2, S0, S0)
+        SEND3(xtd, S2, S0, S1)
 
-        // «
-        COMPOSE_BIND_3(xcomma
-            , <&macro_press   &kp LSHIFT>
-            , <&macro_tap     &kp COMMA &kp COMMA>
-            , <&macro_release &kp LSHIFT>
-        )
+        // »«
+        SEND3(xdot,   S2, S1, S0)
+        SEND3(xcomma, S2, S0, S2)
 
-        // »
-        COMPOSE_BIND_3(xdot
-            , <&macro_press   &kp LSHIFT>
-            , <&macro_tap     &kp DOT &kp DOT>
-            , <&macro_release &kp LSHIFT>
-        )
+        // SEND3(free, S2, S1, S1)
+        // SEND3(free, S2, S1, S2)
+        // SEND3(free, S2, S2, S0)
+        // SEND3(free, S2, S2, S1)
+        // SEND3(free, S2, S2, S2)
     };
