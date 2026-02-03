@@ -73,18 +73,20 @@
     };
 
     macros {
-        #define COMPOSE_START PAUSE_BREAK
-        #define COMPOSE_END X
+        #define SEQUENCE_START &kp GRAVE &kp GRAVE
+        #define SEQUENCE_END &kp X
+        #define SEQUENCE_WAIT <0>
+        #define SEQUENCE_TAP <5>
 
         #define SEND_U2(name, k1, k2) \
             name: name { \
                     label = #name; \
                     compatible = "zmk,behavior-macro"; \
                     #binding-cells = <0>; \
-                    wait-ms = <10>; \
-                    tap-ms = <10>; \
+                    wait-ms = SEQUENCE_WAIT; \
+                    tap-ms = SEQUENCE_TAP; \
                     bindings \
-                        = <&macro_tap &kp COMPOSE_START &kp k1 &kp k2 &kp COMPOSE_END> \
+                        = <&macro_tap SEQUENCE_START &kp k1 &kp k2 SEQUENCE_END> \
                         ; \
                 };
 
@@ -93,10 +95,10 @@
                     label = #name; \
                     compatible = "zmk,behavior-macro"; \
                     #binding-cells = <0>; \
-                    wait-ms = <10>; \
-                    tap-ms = <10>; \
+                    wait-ms = SEQUENCE_WAIT; \
+                    tap-ms = SEQUENCE_TAP; \
                     bindings \
-                        = <&macro_tap &kp COMPOSE_START &kp k1 &kp k2 &kp k3 &kp k4 &kp COMPOSE_END> \
+                        = <&macro_tap SEQUENCE_START &kp k1 &kp k2 &kp k3 &kp k4 SEQUENCE_END> \
                         ; \
                 };
 
@@ -104,20 +106,20 @@
             name##_regular: name##_regular { \
                     compatible = "zmk,behavior-macro"; \
                     #binding-cells = <0>; \
-                    wait-ms = <10>; \
-                    tap-ms = <10>; \
+                    wait-ms = SEQUENCE_WAIT; \
+                    tap-ms = SEQUENCE_TAP; \
                     bindings \
-                        = <&macro_tap &kp COMPOSE_START &kp r1 &kp r2 &kp COMPOSE_END> \
+                        = <&macro_tap SEQUENCE_START &kp r1 &kp r2 SEQUENCE_END> \
                         ; \
                 }; \
             \
             name##_shifted: name##_shifted { \
                     compatible = "zmk,behavior-macro"; \
                     #binding-cells = <0>; \
-                    wait-ms = <10>; \
-                    tap-ms = <10>; \
+                    wait-ms = SEQUENCE_WAIT; \
+                    tap-ms = SEQUENCE_TAP; \
                     bindings \
-                        = <&macro_tap &kp COMPOSE_START &kp s1 &kp s2 &kp COMPOSE_END> \
+                        = <&macro_tap SEQUENCE_START &kp s1 &kp s2 SEQUENCE_END> \
                         ; \
                 }; \
             \
@@ -132,20 +134,20 @@
             name##_regular: name##_regular { \
                     compatible = "zmk,behavior-macro"; \
                     #binding-cells = <0>; \
-                    wait-ms = <10>; \
-                    tap-ms = <10>; \
+                    wait-ms = SEQUENCE_WAIT; \
+                    tap-ms = SEQUENCE_TAP; \
                     bindings \
-                        = <&macro_tap &kp COMPOSE_START &kp r1 &kp r2 &kp COMPOSE_END> \
+                        = <&macro_tap SEQUENCE_START &kp r1 &kp r2 SEQUENCE_END> \
                         ; \
                 }; \
             \
             name##_shifted: name##_shifted { \
                     compatible = "zmk,behavior-macro"; \
                     #binding-cells = <0>; \
-                    wait-ms = <10>; \
-                    tap-ms = <10>; \
+                    wait-ms = SEQUENCE_WAIT; \
+                    tap-ms = SEQUENCE_TAP; \
                     bindings \
-                        = <&macro_tap &kp COMPOSE_START &kp s1 &kp s2 &kp s3 &kp s4 &kp COMPOSE_END> \
+                        = <&macro_tap SEQUENCE_START &kp s1 &kp s2 &kp s3 &kp s4 SEQUENCE_END> \
                         ; \
                 }; \
             \

@@ -1,0 +1,81 @@
+matches:
+  - trigger: "``e4x"
+    replace: "ä"
+
+  - trigger: "``c4x"
+    replace: "Ä"
+
+  - trigger: "``f6x"
+    replace: "ö"
+
+  - trigger: "``d6x"
+    replace: "Ö"
+
+  - trigger: "``fcx"
+    replace: "ü"
+
+  - trigger: "``dcx"
+    replace: "Ü"
+
+  - trigger: "``dfx"
+    replace: "ß"
+
+  - trigger: "``1e9ex"
+    replace: "ẞ"
+
+  - trigger: "``20acx"
+    replace: "€"
+
+  - trigger: "``d7x"
+    replace: "×"
+
+  - trigger: "``2776x"
+    replace: "❶"
+
+  - trigger: "``2777x"
+    replace: "❷"
+
+  - trigger: "``2778x"
+    replace: "❸"
+
+  - trigger: "``2779x"
+    replace: "❹"
+
+  - trigger: "``277ax"
+    replace: "❺"
+
+  - trigger: "``277bx"
+    replace: "❻"
+
+  - trigger: "``277cx"
+    replace: "❼"
+
+  - trigger: "``277dx"
+    replace: "❽"
+
+  - trigger: "``277ex"
+    replace: "❾"
+
+  - trigger: "``24ffx"
+    replace: "⓿"
+
+  - trigger: "``2bc8x"
+    replace: "⯈"
+
+  - trigger: "``2bc7x"
+    replace: "⯇"
+
+  - trigger: "``2bc5x"
+    replace: "⯅"
+
+  - trigger: "``2bc6x" 
+    replace: "⯆"
+
+  - trigger: "``bbx"
+    replace: "»"
+
+  - trigger: "``abx"
+    replace: "«"
+
+  - trigger: "``b0x"
+    replace: "°"
