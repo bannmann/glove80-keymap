@@ -73,13 +73,10 @@
     };
 
     macros {
-        #define SEND_START F19
-        #define S0 F20
-        #define S1 F21
-        #define S2 F22
-        #define SEND_STOP F23
+        #define COMPOSE_START PAUSE_BREAK
+        #define COMPOSE_END X
 
-        #define SEND3(name, k1, k2, k3) \
+        #define SEND_U2(name, k1, k2) \
             name: name { \
                     label = #name; \
                     compatible = "zmk,behavior-macro"; \
@@ -87,53 +84,118 @@
                     wait-ms = <10>; \
                     tap-ms = <10>; \
                     bindings \
-                        = <&macro_tap     &kp SEND_START &kp k1 &kp k2 &kp k3 &kp SEND_STOP> \
+                        = <&macro_tap &kp COMPOSE_START &kp k1 &kp k2 &kp COMPOSE_END> \
                         ; \
                 };
 
+        #define SEND_U4(name, k1, k2, k3, k4) \
+            name: name { \
+                    label = #name; \
+                    compatible = "zmk,behavior-macro"; \
+                    #binding-cells = <0>; \
+                    wait-ms = <10>; \
+                    tap-ms = <10>; \
+                    bindings \
+                        = <&macro_tap &kp COMPOSE_START &kp k1 &kp k2 &kp k3 &kp k4 &kp COMPOSE_END> \
+                        ; \
+                };
+
+        #define SEND_EITHER_U2(name, r1, r2, s1, s2) \
+            name##_regular: name##_regular { \
+                    compatible = "zmk,behavior-macro"; \
+                    #binding-cells = <0>; \
+                    wait-ms = <10>; \
+                    tap-ms = <10>; \
+                    bindings \
+                        = <&macro_tap &kp COMPOSE_START &kp r1 &kp r2 &kp COMPOSE_END> \
+                        ; \
+                }; \
+            \
+            name##_shifted: name##_shifted { \
+                    compatible = "zmk,behavior-macro"; \
+                    #binding-cells = <0>; \
+                    wait-ms = <10>; \
+                    tap-ms = <10>; \
+                    bindings \
+                        = <&macro_tap &kp COMPOSE_START &kp s1 &kp s2 &kp COMPOSE_END> \
+                        ; \
+                }; \
+            \
+            name: name { \
+                compatible = "zmk,behavior-mod-morph"; \
+                #binding-cells = <0>; \
+                bindings = <&name##_regular>, <&name##_shifted>; \
+                mods = <(MOD_LSFT|MOD_RSFT)>; \
+            };
+
+        #define SEND_EITHER_U2U4(name, r1, r2, s1, s2, s3, s4) \
+            name##_regular: name##_regular { \
+                    compatible = "zmk,behavior-macro"; \
+                    #binding-cells = <0>; \
+                    wait-ms = <10>; \
+                    tap-ms = <10>; \
+                    bindings \
+                        = <&macro_tap &kp COMPOSE_START &kp r1 &kp r2 &kp COMPOSE_END> \
+                        ; \
+                }; \
+            \
+            name##_shifted: name##_shifted { \
+                    compatible = "zmk,behavior-macro"; \
+                    #binding-cells = <0>; \
+                    wait-ms = <10>; \
+                    tap-ms = <10>; \
+                    bindings \
+                        = <&macro_tap &kp COMPOSE_START &kp s1 &kp s2 &kp s3 &kp s4 &kp COMPOSE_END> \
+                        ; \
+                }; \
+            \
+            name: name { \
+                compatible = "zmk,behavior-mod-morph"; \
+                #binding-cells = <0>; \
+                bindings = <&name##_regular>, <&name##_shifted>; \
+                mods = <(MOD_LSFT|MOD_RSFT)>; \
+            };
+
         // ä and Ä
-        SEND3(xa, S0, S0, S0)
+        SEND_EITHER_U2(xa, E, N4, C, N4)
 
         // ö and Ö
-        SEND3(xo, S0, S0, S1)
+        SEND_EITHER_U2(xo, F, N6, D, N6)
 
         // ü and Ü
-        SEND3(xu, S0, S0, S2)
+        SEND_EITHER_U2(xu, F, C, D, C)
 
         // ß and ẞ
-        SEND3(xs, S0, S1, S0)
+        SEND_EITHER_U2U4(xs, D, F, N1, E, N9, E)
 
         // €
-        SEND3(xe, S0, S1, S1)
+        SEND_U4(xe, N2, N0, A, C)
 
         // ×
-        SEND3(xx, S0, S1, S2)
+        SEND_U2(xx, D, N7)
 
         // ❶❷❸❹❺❻❼❽❾⓿
-        SEND3(xn1, S0, S2, S0)
-        SEND3(xn2, S0, S2, S1)
-        SEND3(xn3, S0, S2, S2)
-        SEND3(xn4, S1, S0, S0)
-        SEND3(xn5, S1, S0, S1)
-        SEND3(xn6, S1, S0, S2)
-        SEND3(xn7, S1, S1, S0)
-        SEND3(xn8, S1, S1, S1)
-        SEND3(xn9, S1, S1, S2)
-        SEND3(xn0, S1, S2, S0)
+        SEND_U4(xn1, N2, N7, N7, N6)
+        SEND_U4(xn2, N2, N7, N7, N7)
+        SEND_U4(xn3, N2, N7, N7, N8)
+        SEND_U4(xn4, N2, N7, N7, N9)
+        SEND_U4(xn5, N2, N7, N7, A)
+        SEND_U4(xn6, N2, N7, N7, B)
+        SEND_U4(xn7, N2, N7, N7, C)
+        SEND_U4(xn8, N2, N7, N7, D)
+        SEND_U4(xn9, N2, N7, N7, E)
+        SEND_U4(xn0, N2, N4, F, F)
 
         // ⯈⯇⯅⯆
-        SEND3(xtr, S1, S2, S1)
-        SEND3(xtl, S1, S2, S2)
-        SEND3(xtu, S2, S0, S0)
-        SEND3(xtd, S2, S0, S1)
+        SEND_U4(xtr, N2, B, C, N8)
+        SEND_U4(xtl, N2, B, C, N7)
+        SEND_U4(xtu, N2, B, C, N5)
+        SEND_U4(xtd, N2, B, C, N6)
 
         // »«
-        SEND3(xdot,   S2, S1, S0)
-        SEND3(xcomma, S2, S0, S2)
+        SEND_U2(xdot, B, B)
+        SEND_U2(xcomma, A, B)
 
-        // SEND3(free, S2, S1, S1)
-        // SEND3(free, S2, S1, S2)
-        // SEND3(free, S2, S2, S0)
-        // SEND3(free, S2, S2, S1)
-        // SEND3(free, S2, S2, S2)
+        // °
+        SEND_U2(xdegree, B, N0)
     };
